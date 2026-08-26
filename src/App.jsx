@@ -9,13 +9,13 @@ function App() {
     <div className="relative min-h-screen text-slate-100 selection:bg-sky-500/30">
       {/* Global Background Layer */}
       <div 
-        className="fixed inset-0 z-0 bg-[url('/image_3e963e.jpg')] bg-cover bg-center bg-no-repeat"
+        className="fixed inset-0 -z-20 bg-[url('/image_3e963e.jpg')] bg-cover bg-center bg-no-repeat"
       />
       {/* Dark Overlay to ensure UI readability */}
-      <div className="fixed inset-0 z-0 bg-slate-950/80" />
+      <div className="fixed inset-0 -z-10 bg-slate-950/80" />
 
       {/* Main Content */}
-      <main className="relative z-10 w-full overflow-x-hidden">
+      <main className="relative z-10 w-full">
         {/* Navigation / Header - Optional minimal nav */}
         <nav className="fixed top-0 w-full z-50 p-6 flex justify-between items-center backdrop-blur-md bg-transparent border-b border-white/5">
           <div className="font-bold text-xl tracking-tighter font-mono">
