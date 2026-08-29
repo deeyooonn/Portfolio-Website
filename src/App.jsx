@@ -208,14 +208,15 @@ function SpaceBackground() {
 // ─── Starry Cursor Sparkle ────────────────────────────────────────────────────
 function StarCursor() {
   const canvasRef = useRef(null);
+  const glowRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    const glow = glowRef.current;
     const ctx = canvas.getContext('2d');
 
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
-    let mouse = { x: width / 2, y: height / 2 };
     let particles = [];
 
     const onResize = () => {
@@ -224,9 +225,12 @@ function StarCursor() {
     };
 
     const onMouseMove = (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+      const { clientX: x, clientY: y } = e;
 
+      // Move the CSS glow div INSTANTLY — no RAF, no lag
+      glow.style.transform = `translate(${x}px, ${y}px)`;
+
+      // Spawn sparkle particles
       const count = Math.floor(Math.random() * 3) + 2;
       for (let i = 0; i < count; i++) {
         const angle = Math.random() * Math.PI * 2;
@@ -235,8 +239,8 @@ function StarCursor() {
         const hue = Math.random() > 0.5 ? 185 : 260;
         const life = Math.random() * 40 + 30;
         particles.push({
-          x: mouse.x + (Math.random() - 0.5) * 12,
-          y: mouse.y + (Math.random() - 0.5) * 12,
+          x: x + (Math.random() - 0.5) * 12,
+          y: y + (Math.random() - 0.5) * 12,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed - 0.6,
           size, alpha: 1, hue,
@@ -247,25 +251,12 @@ function StarCursor() {
       }
     };
 
-    let glowX = width / 2, glowY = height / 2;
     let animId;
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Snap glow directly to cursor — no lag
-      glowX = mouse.x;
-      glowY = mouse.y;
-
-      const gradient = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, 80);
-      gradient.addColorStop(0, 'rgba(34,211,238,0.07)');
-      gradient.addColorStop(0.5, 'rgba(34,211,238,0.03)');
-      gradient.addColorStop(1, 'rgba(34,211,238,0)');
-      ctx.fillStyle = gradient;
-      ctx.beginPath();
-      ctx.arc(glowX, glowY, 80, 0, Math.PI * 2);
-      ctx.fill();
-
+      // Only draw drifting sparkle particles on canvas
       particles = particles.filter(p => p.life > 0);
       for (const p of particles) {
         p.life--;
@@ -308,11 +299,32 @@ function StarCursor() {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none"
-      style={{ zIndex: 9999 }}
-    />
+    <>
+      {/* CSS glow — positioned via transform directly from mousemove, zero lag */}
+      <div
+        ref={glowRef}
+        className="fixed pointer-events-none"
+        style={{
+          zIndex: 9998,
+          top: 0,
+          left: 0,
+          width: 120,
+          height: 120,
+          borderRadius: '50%',
+          transform: 'translate(-9999px, -9999px)', // hidden until first mousemove
+          marginLeft: -60,
+          marginTop: -60,
+          background: 'radial-gradient(circle, rgba(34,211,238,0.12) 0%, rgba(34,211,238,0.05) 40%, transparent 70%)',
+          filter: 'blur(8px)',
+        }}
+      />
+      {/* Canvas for drifting sparkle particles only */}
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 pointer-events-none"
+        style={{ zIndex: 9999 }}
+      />
+    </>
   );
 }
 
