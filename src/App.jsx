@@ -26,6 +26,7 @@ function SpaceBackground() {
     const STAR_COUNT = 220;
 
     const initStars = () => {
+      const now = Date.now();
       stars = Array.from({ length: STAR_COUNT }, () => {
         const palette = Math.random();
         let color;
@@ -33,23 +34,24 @@ function SpaceBackground() {
         else if (palette < 0.8) color = { h: 185, s: 80, l: 75 };  // cyan
         else color = { h: 270, s: 70, l: 80 };                       // purple
 
-        // ~25% of stars are "blinkers" — sharp flash pattern
-        const isBlinker = Math.random() < 0.25;
+        // ~30% of stars are "blinkers"
+        const isBlinker = Math.random() < 0.30;
 
         return {
           x: Math.random() * width,
           y: Math.random() * height,
-          r: isBlinker ? Math.random() * 1.8 + 0.6 : Math.random() * 1.4 + 0.3,
+          r: isBlinker ? Math.random() * 2 + 0.8 : Math.random() * 1.2 + 0.3,
           phase: Math.random() * Math.PI * 2,
           speed: Math.random() * 0.015 + 0.005,
           color,
           isBlinker,
-          // Blinker-specific: random interval between flashes (ms)
-          blinkInterval: 1500 + Math.random() * 4000,
-          blinkTimer: Math.random() * 5000, // stagger start
-          blinkDuration: 80 + Math.random() * 120, // how long the flash lasts
-          blinkState: 0, // 0 = off, 1 = on
-          baseAlpha: 0.08 + Math.random() * 0.12, // dim resting alpha
+          // Use real timestamps for reliable blink timing
+          nextBlink: now + Math.random() * 3000,          // when next flash starts
+          blinkInterval: 2000 + Math.random() * 5000,    // gap between flashes
+          blinkDuration: 150 + Math.random() * 200,      // ms the flash lasts
+          blinkStart: 0,                                   // timestamp of current flash
+          isFlashing: false,
+          baseAlpha: 0.15 + Math.random() * 0.15,        // visible dim resting state
         };
       });
     };
@@ -103,32 +105,51 @@ function SpaceBackground() {
       }
 
       // Draw stars (twinklers + blinkers)
-      const elapsed = t * 1000; // ms equivalent
+      const nowMs = Date.now();
       for (const s of stars) {
-        let alpha, scale;
+        let alpha, scale, shadowBlur;
 
         if (s.isBlinker) {
-          // Sharp blink: dim most of the time, then flare brightly for a short burst
-          const cycle = elapsed % s.blinkInterval;
-          const offset = s.blinkTimer % s.blinkInterval;
-          const inFlash = (cycle > offset) && (cycle < offset + s.blinkDuration);
-          const flashProgress = inFlash
-            ? Math.sin(((cycle - offset) / s.blinkDuration) * Math.PI)
-            : 0;
-          alpha = s.baseAlpha + flashProgress * 0.9;
-          scale = 1 + flashProgress * 0.6;
+          // Trigger a new flash?
+          if (!s.isFlashing && nowMs >= s.nextBlink) {
+            s.isFlashing = true;
+            s.blinkStart = nowMs;
+          }
+
+          if (s.isFlashing) {
+            const elapsed = nowMs - s.blinkStart;
+            if (elapsed < s.blinkDuration) {
+              // Arc from 0 → peak → 0 using sine
+              const progress = Math.sin((elapsed / s.blinkDuration) * Math.PI);
+              alpha = s.baseAlpha + progress * 0.85;
+              scale = 1 + progress * 1.2;        // grows noticeably during flash
+              shadowBlur = 4 + progress * 20;   // big glow burst at peak
+            } else {
+              // Flash over — reset
+              s.isFlashing = false;
+              s.nextBlink = nowMs + s.blinkInterval;
+              alpha = s.baseAlpha;
+              scale = 1;
+              shadowBlur = 2;
+            }
+          } else {
+            alpha = s.baseAlpha;
+            scale = 1;
+            shadowBlur = 2;
+          }
         } else {
           // Smooth sine twinkle
           const twinkle = Math.sin(t * s.speed * 60 + s.phase);
           alpha = 0.25 + 0.65 * ((twinkle + 1) / 2);
           scale = 0.7 + 0.3 * ((twinkle + 1) / 2);
+          shadowBlur = s.r > 1 ? 4 : 2;
         }
 
         ctx.save();
         ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
         ctx.fillStyle = `hsl(${s.color.h}, ${s.color.s}%, ${s.color.l}%)`;
-        ctx.shadowColor = `hsl(${s.color.h}, 90%, 85%)`;
-        ctx.shadowBlur = s.isBlinker ? (alpha > 0.5 ? 10 : 3) : (s.r > 1 ? 4 : 2);
+        ctx.shadowColor = `hsl(${s.color.h}, 90%, 90%)`;
+        ctx.shadowBlur = shadowBlur;
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r * scale, 0, Math.PI * 2);
         ctx.fill();
