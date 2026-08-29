@@ -232,8 +232,9 @@ function StarCursor() {
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
 
-      glowX += (mouse.x - glowX) * 0.12;
-      glowY += (mouse.y - glowY) * 0.12;
+      // Snap glow directly to cursor — no lag
+      glowX = mouse.x;
+      glowY = mouse.y;
 
       const gradient = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, 80);
       gradient.addColorStop(0, 'rgba(34,211,238,0.07)');
@@ -298,9 +299,29 @@ function StarCursor() {
 function App() {
   return (
     <div className="relative min-h-screen text-slate-100 selection:bg-sky-500/30">
-      {/* Background layers */}
-      <div className="fixed inset-0 -z-20 bg-[url('/nebula_bg.jpg')] bg-cover bg-center bg-no-repeat" />
-      <div className="fixed inset-0 -z-10 bg-slate-950/70" />
+      {/* ── Deep space CSS background — clean, no image needed ── */}
+      <div
+        className="fixed inset-0 -z-20"
+        style={{
+          background: `
+            radial-gradient(ellipse 80% 60% at 15% 20%, rgba(15,30,60,0.95) 0%, transparent 70%),
+            radial-gradient(ellipse 60% 50% at 85% 75%, rgba(20,10,50,0.9) 0%, transparent 65%),
+            radial-gradient(ellipse 50% 40% at 50% 50%, rgba(10,25,55,0.7) 0%, transparent 70%),
+            linear-gradient(160deg, #020811 0%, #060d1f 30%, #050a18 60%, #040810 100%)
+          `
+        }}
+      />
+      {/* Subtle nebula colour hints */}
+      <div
+        className="fixed inset-0 -z-10 pointer-events-none"
+        style={{
+          background: `
+            radial-gradient(ellipse 45% 35% at 10% 35%, rgba(34,211,238,0.04) 0%, transparent 70%),
+            radial-gradient(ellipse 40% 30% at 90% 60%, rgba(139,92,246,0.04) 0%, transparent 70%),
+            radial-gradient(ellipse 30% 25% at 65% 20%, rgba(56,189,248,0.03) 0%, transparent 60%)
+          `
+        }}
+      />
 
       {/* Twinkling stars + meteor showers */}
       <SpaceBackground />
