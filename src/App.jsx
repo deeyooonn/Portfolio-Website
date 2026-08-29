@@ -23,35 +23,37 @@ function SpaceBackground() {
 
     // ── Stars ──────────────────────────────────────────────────────────────────
     let stars = [];
-    const STAR_COUNT = 220;
+    const STAR_COUNT = 500;
 
     const initStars = () => {
       const now = Date.now();
       stars = Array.from({ length: STAR_COUNT }, () => {
         const palette = Math.random();
         let color;
-        if (palette < 0.6) color = { h: 200, s: 20, l: 95 };       // cool white
-        else if (palette < 0.8) color = { h: 185, s: 80, l: 75 };  // cyan
-        else color = { h: 270, s: 70, l: 80 };                       // purple
+        if (palette < 0.55) color = { h: 200, s: 15, l: 95 };      // cool white
+        else if (palette < 0.75) color = { h: 185, s: 90, l: 78 }; // cyan
+        else if (palette < 0.9) color = { h: 270, s: 80, l: 82 };  // purple
+        else color = { h: 45, s: 90, l: 85 };                       // warm gold accent
 
-        // ~30% of stars are "blinkers"
-        const isBlinker = Math.random() < 0.30;
+        // ~40% of stars are blinkers
+        const isBlinker = Math.random() < 0.40;
 
         return {
           x: Math.random() * width,
           y: Math.random() * height,
-          r: isBlinker ? Math.random() * 2 + 0.8 : Math.random() * 1.2 + 0.3,
+          r: isBlinker
+            ? Math.random() * 2.2 + 1.0   // blinkers are bigger
+            : Math.random() * 1.0 + 0.2,  // twinklers are tiny
           phase: Math.random() * Math.PI * 2,
           speed: Math.random() * 0.015 + 0.005,
           color,
           isBlinker,
-          // Use real timestamps for reliable blink timing
-          nextBlink: now + Math.random() * 3000,          // when next flash starts
-          blinkInterval: 2000 + Math.random() * 5000,    // gap between flashes
-          blinkDuration: 150 + Math.random() * 200,      // ms the flash lasts
-          blinkStart: 0,                                   // timestamp of current flash
+          nextBlink: now + Math.random() * 2000,       // first blink within 2s
+          blinkInterval: 800 + Math.random() * 3000,  // blink every 0.8–3.8s
+          blinkDuration: 200 + Math.random() * 250,   // flash lasts 200–450ms
+          blinkStart: 0,
           isFlashing: false,
-          baseAlpha: 0.15 + Math.random() * 0.15,        // visible dim resting state
+          baseAlpha: 0.20 + Math.random() * 0.15,     // clearly visible at rest
         };
       });
     };
@@ -110,7 +112,6 @@ function SpaceBackground() {
         let alpha, scale, shadowBlur;
 
         if (s.isBlinker) {
-          // Trigger a new flash?
           if (!s.isFlashing && nowMs >= s.nextBlink) {
             s.isFlashing = true;
             s.blinkStart = nowMs;
@@ -119,41 +120,70 @@ function SpaceBackground() {
           if (s.isFlashing) {
             const elapsed = nowMs - s.blinkStart;
             if (elapsed < s.blinkDuration) {
-              // Arc from 0 → peak → 0 using sine
               const progress = Math.sin((elapsed / s.blinkDuration) * Math.PI);
-              alpha = s.baseAlpha + progress * 0.85;
-              scale = 1 + progress * 1.2;        // grows noticeably during flash
-              shadowBlur = 4 + progress * 20;   // big glow burst at peak
+              alpha = s.baseAlpha + progress * 0.95;  // nearly full brightness
+              scale = 1 + progress * 2.0;              // doubles in size at peak
+              shadowBlur = 6 + progress * 30;          // very visible glow burst
             } else {
-              // Flash over — reset
               s.isFlashing = false;
               s.nextBlink = nowMs + s.blinkInterval;
               alpha = s.baseAlpha;
               scale = 1;
-              shadowBlur = 2;
+              shadowBlur = 3;
             }
           } else {
             alpha = s.baseAlpha;
             scale = 1;
-            shadowBlur = 2;
+            shadowBlur = 3;
           }
-        } else {
-          // Smooth sine twinkle
-          const twinkle = Math.sin(t * s.speed * 60 + s.phase);
-          alpha = 0.25 + 0.65 * ((twinkle + 1) / 2);
-          scale = 0.7 + 0.3 * ((twinkle + 1) / 2);
-          shadowBlur = s.r > 1 ? 4 : 2;
-        }
 
-        ctx.save();
-        ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
-        ctx.fillStyle = `hsl(${s.color.h}, ${s.color.s}%, ${s.color.l}%)`;
-        ctx.shadowColor = `hsl(${s.color.h}, 90%, 90%)`;
-        ctx.shadowBlur = shadowBlur;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r * scale, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
+          // Draw the star circle
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+          ctx.fillStyle = `hsl(${s.color.h}, ${s.color.s}%, ${s.color.l}%)`;
+          ctx.shadowColor = `hsl(${s.color.h}, 100%, 90%)`;
+          ctx.shadowBlur = shadowBlur;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r * scale, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Draw a 4-point lens-flare cross during flash for extra drama
+          if (s.isFlashing) {
+            const elapsed = nowMs - s.blinkStart;
+            const progress = Math.sin((elapsed / s.blinkDuration) * Math.PI);
+            if (progress > 0.1) {
+              const armLen = s.r * scale * 5 * progress;
+              ctx.globalAlpha = progress * 0.6;
+              ctx.strokeStyle = `hsl(${s.color.h}, 100%, 92%)`;
+              ctx.lineWidth = 0.8;
+              ctx.shadowBlur = 8;
+              ctx.beginPath();
+              ctx.moveTo(s.x - armLen, s.y);
+              ctx.lineTo(s.x + armLen, s.y);
+              ctx.moveTo(s.x, s.y - armLen);
+              ctx.lineTo(s.x, s.y + armLen);
+              ctx.stroke();
+            }
+          }
+          ctx.restore();
+
+        } else {
+          // Smooth sine twinkle for background stars
+          const twinkle = Math.sin(t * s.speed * 60 + s.phase);
+          alpha = 0.15 + 0.55 * ((twinkle + 1) / 2);
+          scale = 0.7 + 0.3 * ((twinkle + 1) / 2);
+          shadowBlur = s.r > 0.8 ? 3 : 1;
+
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+          ctx.fillStyle = `hsl(${s.color.h}, ${s.color.s}%, ${s.color.l}%)`;
+          ctx.shadowColor = `hsl(${s.color.h}, 90%, 90%)`;
+          ctx.shadowBlur = shadowBlur;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r * scale, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
       }
 
       // Draw meteors
