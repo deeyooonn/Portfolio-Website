@@ -79,7 +79,7 @@ export default function Skills() {
           <h2 className="text-4xl md:text-5xl font-bold text-white">Core Competencies</h2>
           <p className="text-slate-400 mt-4 max-w-xl">The languages and layers I build with, from silicon to screen.</p>
         </div>
-        
+
         <div className="grid grid-cols-12 gap-4">
           {skills.map((skill) => (
             <BentoCard key={skill.id} skill={skill} mousePosition={mousePosition} />
