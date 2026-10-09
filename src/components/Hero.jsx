@@ -57,9 +57,9 @@ export default function Hero() {
           variants={itemVariants}
           className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-white leading-tight"
         >
-          Building Core Engines{' '}
+          Building Web &amp; Mobile Apps{' '}
           <br className="hidden md:block" />
-          <span className="text-cyan-400">&</span> Digital Systems
+          <span className="text-cyan-400">with AI</span>
         </motion.h1>
 
         {/* Subtitle */}
@@ -67,8 +67,8 @@ export default function Hero() {
           variants={itemVariants}
           className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl font-light"
         >
-          Developer &amp; systems engineer crafting high-performance software — from low-level engines
-          in C++ to polished full-stack interfaces. I build things that run fast and stay running.
+          Full-stack developer building useful web and mobile apps with JavaScript, Node.js, React,
+          and Flutter.
         </motion.p>
 
         {/* CTA buttons */}

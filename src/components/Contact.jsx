@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import MagneticButton from './MagneticButton';
-import { Mail, Github, Linkedin } from 'lucide-react';
+import { Mail, ExternalLink, Phone } from 'lucide-react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -47,18 +47,18 @@ export default function Contact() {
           className="relative z-10"
         >
           <motion.p variants={itemVariants} className="font-mono text-cyan-400 text-xs tracking-widest uppercase mb-4">
-            // 04 - CONTACT
+            // 05 - CONTACT
           </motion.p>
 
           <motion.h2
             variants={itemVariants}
             className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight"
           >
-            Let's build the system.
+            Let's build something useful.
           </motion.h2>
 
           <motion.p variants={itemVariants} className="text-lg text-slate-400 mb-12 max-w-xl mx-auto font-light">
-            Open to roles, freelance, and ambitious projects. Reach out and let's talk architecture.
+            Open to internships, freelance work, and collaborations.
           </motion.p>
 
           <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-4">
@@ -78,8 +78,17 @@ export default function Contact() {
               whileTap={{ scale: 0.96 }}
               className="inline-flex items-center gap-2 text-sm font-mono tracking-wider px-6 py-3 border border-white/10 hover:border-slate-400/50 hover:bg-white/5 text-slate-300 hover:text-white rounded-full transition-colors"
             >
-              <Github size={16} />
+              <ExternalLink size={16} />
               GITHUB
+            </motion.a>
+            <motion.a
+              href="tel:09310330281"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.96 }}
+              className="inline-flex items-center gap-2 text-sm font-mono tracking-wider px-6 py-3 border border-white/10 hover:border-cyan-500/50 hover:bg-cyan-500/10 text-slate-300 hover:text-white rounded-full transition-colors"
+            >
+              <Phone size={16} />
+              09310330281
             </motion.a>
           </motion.div>
         </motion.div>

@@ -3,6 +3,7 @@ import Hero from './components/Hero';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
+import Experience from './components/Experience';
 
 // ─── Space Background: Twinkling Stars + Meteor Showers ──────────────────────
 function SpaceBackground() {
@@ -402,6 +403,7 @@ function App() {
             <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-white transition-colors">Home</button>
             <button onClick={() => document.getElementById('skills').scrollIntoView({ behavior: 'smooth' })} className="hover:text-white transition-colors">Skills</button>
             <button onClick={() => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })} className="hover:text-white transition-colors">Projects</button>
+            <button onClick={() => document.getElementById('experience').scrollIntoView({ behavior: 'smooth' })} className="hover:text-white transition-colors">Experience</button>
             <button onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })} className="hover:text-white transition-colors">Contact</button>
           </div>
         </nav>
@@ -409,6 +411,7 @@ function App() {
         <Hero />
         <Skills />
         <Projects />
+        <Experience />
         <Contact />
       </main>
     </div>

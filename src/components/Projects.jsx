@@ -1,34 +1,61 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, X } from 'lucide-react';
+import { ExternalLink, X } from 'lucide-react';
 
 const projects = [
   {
     id: 1,
-    title: 'SweepDash',
-    type: 'PRODUCTIVITY',
-    desc: 'A keyboard-first task sweep dashboard with drag reordering, streak tracking, and a live activity heatmap built for flow-state focus.',
-    tags: ['REACT', 'TAILWIND', 'MOTION'],
-    liveUrl: 'https://just-ctrl-v-zst2.vercel.app/',
-    sourceUrl: null,
+    title: 'PRIME Fleet and Mobility',
+    type: 'INTERNSHIP',
+    desc: 'A company platform for employees to book cars and services. I worked on the project during my internship at PRIME.',
+    tags: ['FLEET BOOKING', 'INTERNSHIP'],
+    liveUrl: null,
+    sourceUrl: 'https://github.com/prime-philippines/PRIME-Philippines-Intelligent-Fleet-and-Mobility-Management-System',
   },
   {
     id: 2,
-    title: 'Albion Calculator',
-    type: 'GAME TOOL',
-    desc: 'A damage-and-economy calculator for Albion Online — parses item stats, computes build efficiency, and surfaces profit-optimal crafting paths in real time.',
-    tags: ['REACT', 'TYPESCRIPT', 'REST'],
-    liveUrl: null,
-    sourceUrl: null,
+    title: 'Just CTRL + V',
+    type: 'AI STUDY TOOL',
+    desc: 'Scans documents and pictures with AI to create table-style reviewers and flashcards. Users can save and export their files.',
+    tags: ['AI', 'REVIEWERS', 'FLASHCARDS'],
+    liveUrl: 'https://just-ctrl-v-zst2.vercel.app/',
+    sourceUrl: 'https://github.com/deeyooonn/just-ctrl-v',
   },
   {
     id: 3,
-    title: 'CheckXACT',
-    type: 'VERIFICATION',
-    desc: 'An automated verification harness that cross-checks transaction records against source-of-truth feeds, flagging discrepancies with a full audit trail.',
-    tags: ['PYTHON', 'VERILOG', 'CLI'],
+    title: 'Margal Sports Website',
+    type: 'BOOKING PLATFORM',
+    desc: 'A website with booking and management tools for Margal Sports clients.',
+    tags: ['BOOKING', 'MANAGEMENT'],
     liveUrl: null,
-    sourceUrl: null,
+    sourceUrl: 'https://github.com/deeyooonn/Margal-Sport-Center-Website',
+  },
+  {
+    id: 4,
+    title: 'Albion Online Calculator',
+    type: 'GAME TOOL',
+    desc: 'A crafting calculator that helps Albion Online players work out the items and materials needed to craft.',
+    tags: ['ALBION ONLINE', 'CRAFTING'],
+    liveUrl: null,
+    sourceUrl: 'https://github.com/deeyooonn/Albion-Online-Enchantment-Calculator',
+  },
+  {
+    id: 5,
+    title: 'Just Pace',
+    type: 'MOBILE APP',
+    desc: 'An Android-focused Flutter app that scans documents with AI and turns them into flashcards.',
+    tags: ['FLUTTER', 'ANDROID', 'AI'],
+    liveUrl: null,
+    sourceUrl: 'https://github.com/deeyooonn/Just-Paste',
+  },
+  {
+    id: 6,
+    title: 'Client Scraper',
+    type: 'AUTOMATION TOOL',
+    desc: 'Searches Google Maps for small businesses, checks for websites and contact details, and filters results by location across the country.',
+    tags: ['AUTOMATION', 'GOOGLE MAPS'],
+    liveUrl: null,
+    sourceUrl: 'https://github.com/deeyooonn/Client-Scrapper',
   },
 ];
 
@@ -101,7 +128,7 @@ function ProjectModal({ project, onClose }) {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 border border-slate-700 hover:border-slate-400 text-slate-300 hover:text-white font-mono text-sm px-6 py-3 rounded-full transition-colors"
                   >
-                    <Github size={15} />
+                    <ExternalLink size={15} />
                     SOURCE
                   </a>
                 )}
