@@ -1,16 +1,36 @@
-# React + Vite
+# Dion De Guzman — Personal Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Minimal, calm developer portfolio featuring a **full-viewport landing screen with layered window panels** over a soft starry night sky.
 
-Currently, two official plugins are available:
+Built with React 19, Vite, Tailwind CSS v4, Framer Motion, and custom HTML5 Canvas particle systems.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+For full technical specifications, architecture decisions, and component breakdowns, see [PROJECT_OVERVIEW.md](../PROJECT_OVERVIEW.md) and [LAYERED_NAV_CHANGES.md](../LAYERED_NAV_CHANGES.md).
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Quick Start
 
-## Expanding the Oxlint configuration
+```powershell
+# 1. Install dependencies
+npm install
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+# 2. Run local dev server (http://localhost:5173/)
+npm run dev
+
+# 3. Lint with Oxlint
+npm run lint
+
+# 4. Production build
+npm run build
+```
+
+---
+
+## Architecture Summary
+
+- **Navigation:** Layered panel windows (`Panel.jsx`) synced to URL hash (`#projects`, `#skills`, `#contact`).
+- **Landing:** Full-viewport landing screen (`Landing.jsx`) with vertical menu rows replacing top navbars and long page scrolling.
+- **Design Tokens:** Deep midnight (`#05070d`), panel surface (`#0a0f1c`), and pale-blue accent (`#9ec1ff`).
+- **Typography:** Instrument Sans via Google Fonts in sentence case.
+- **Background:** High-DPI canvas starfield with soft sinusoidal twinkle behind all views.
+- **Accessibility:** Full WCAG keyboard trap, Escape key dismiss, focus restoration, and `prefers-reduced-motion` compliance.

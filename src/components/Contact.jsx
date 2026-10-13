@@ -1,102 +1,38 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import MagneticButton from './MagneticButton';
-import { Mail, ExternalLink, Phone } from 'lucide-react';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.1 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
-};
-
+﻿import { useEffect, useRef, useState } from 'react';
+import { ArrowUpRight, Copy, Check } from 'lucide-react';
+const EMAIL = 'diondeguzman@gmail.com';
+const GITHUB_URL = 'https://github.com/deeyooonn';
+const PHONE_NUMBER = '09310330281';
+const LINKEDIN_URL = '';
 export default function Contact() {
-  return (
-    <section id="contact" className="py-32 px-4 relative z-10">
-      <motion.div
-        className="max-w-4xl mx-auto text-center bg-white/5 border border-white/5 p-12 md:p-20 rounded-2xl backdrop-blur-md relative overflow-hidden"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      >
-        {/* Subtle animated background gradient */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          animate={{
-            background: [
-              'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(34,211,238,0.04) 0%, transparent 70%)',
-              'radial-gradient(ellipse 60% 50% at 30% 60%, rgba(139,92,246,0.05) 0%, transparent 70%)',
-              'radial-gradient(ellipse 60% 50% at 70% 40%, rgba(34,211,238,0.04) 0%, transparent 70%)',
-            ],
-          }}
-          transition={{ duration: 6, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
-        />
-
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.4 }}
-          className="relative z-10"
-        >
-          <motion.p variants={itemVariants} className="font-mono text-cyan-400 text-xs tracking-widest uppercase mb-4">
-            // 05 - CONTACT
-          </motion.p>
-
-          <motion.h2
-            variants={itemVariants}
-            className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight"
-          >
-            Let's build something useful.
-          </motion.h2>
-
-          <motion.p variants={itemVariants} className="text-lg text-slate-400 mb-12 max-w-xl mx-auto font-light">
-            Open to internships, freelance work, and collaborations.
-          </motion.p>
-
-          <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-4">
-            <MagneticButton
-              className="flex items-center gap-2 text-sm font-mono tracking-wider px-6 py-3 border border-white/10 hover:border-cyan-500/50 hover:bg-cyan-500/10"
-              onClick={() => window.location.href = 'mailto:diondeguzman@email.com'}
-            >
-              <Mail size={16} />
-              SAY HELLO
-            </MagneticButton>
-
-            <motion.a
-              href="https://github.com/deeyooonn"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.96 }}
-              className="inline-flex items-center gap-2 text-sm font-mono tracking-wider px-6 py-3 border border-white/10 hover:border-slate-400/50 hover:bg-white/5 text-slate-300 hover:text-white rounded-full transition-colors"
-            >
-              <ExternalLink size={16} />
-              GITHUB
-            </motion.a>
-            <motion.a
-              href="tel:09310330281"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.96 }}
-              className="inline-flex items-center gap-2 text-sm font-mono tracking-wider px-6 py-3 border border-white/10 hover:border-cyan-500/50 hover:bg-cyan-500/10 text-slate-300 hover:text-white rounded-full transition-colors"
-            >
-              <Phone size={16} />
-              09310330281
-            </motion.a>
-          </motion.div>
-        </motion.div>
-      </motion.div>
-
-      <footer className="mt-20 text-center text-slate-600 text-xs font-mono tracking-widest uppercase">
-        <p>© {new Date().getFullYear()} DION DE GUZMAN — BUILT WITH REACT &amp; MOTION</p>
-      </footer>
-    </section>
-  );
+  const [status, setStatus] = useState('idle');
+  const timer = useRef(null), mounted = useRef(false), emailRef = useRef(null), attempt = useRef(0);
+  useEffect(() => { mounted.current = true; return () => { mounted.current = false; clearTimeout(timer.current); }; }, []);
+  const handleCopy = async () => {
+    clearTimeout(timer.current);
+    const currentAttempt = ++attempt.current;
+    let success = false;
+    try { await navigator.clipboard.writeText(EMAIL); success = true; } catch {
+      const input = document.createElement('textarea');
+      input.value = EMAIL; input.setAttribute('aria-hidden', 'true'); input.style.cssText = 'position:fixed;left:-9999px;top:0';
+      const previous = document.activeElement;
+      document.body.append(input); input.select();
+      try { success = document.execCommand('copy'); } catch { success = false; }
+      input.remove(); previous?.focus({ preventScroll: true });
+    }
+    if (!mounted.current || currentAttempt !== attempt.current) return;
+    setStatus(success ? 'copied' : 'failed');
+    if (!success) { const range = document.createRange(); range.selectNodeContents(emailRef.current); const selection = window.getSelection(); selection.removeAllRanges(); selection.addRange(range); }
+    if (success) timer.current = setTimeout(() => setStatus('idle'), 1500);
+  };
+  return <div className="contact-content">
+    <p className="contact-intro">Open to internships, freelance work, and collaborations. Feel free to reach out.</p>
+    <div className="contact-list">
+      <div className="contact-row"><a className="contact-link" href={`mailto:${EMAIL}`}><span className="contact-label">Email</span><span ref={emailRef}>{EMAIL}</span></a><button type="button" className="copy-button" aria-label="Copy email address" onClick={handleCopy}>{status === 'copied' ? <Check size={15} aria-hidden="true" /> : <Copy size={15} aria-hidden="true" />}<span>{status === 'copied' ? 'Copied' : 'Copy'}</span></button></div>
+      {GITHUB_URL && <div className="contact-row"><a className="contact-link" href={GITHUB_URL} target="_blank" rel="noopener noreferrer"><span className="contact-label">GitHub</span><span>GitHub profile<ArrowUpRight size={15} aria-hidden="true" /></span></a></div>}
+      <div className="contact-row"><a className="contact-link" href={`tel:${PHONE_NUMBER}`}><span className="contact-label">Phone</span><span>{PHONE_NUMBER}</span></a></div>
+      {LINKEDIN_URL && <div className="contact-row"><a className="contact-link" href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer"><span className="contact-label">LinkedIn</span><span>LinkedIn profile<ArrowUpRight size={15} aria-hidden="true" /></span></a></div>}
+    </div>
+    <p aria-live="polite" className={status === 'failed' ? 'copy-feedback' : 'sr-only'}>{status === 'copied' ? 'Email copied to clipboard' : status === 'failed' ? 'Copy failed. Please copy the email address manually.' : ''}</p>
+  </div>;
 }
