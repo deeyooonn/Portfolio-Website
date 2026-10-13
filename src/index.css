@@ -28,7 +28,6 @@
   a:hover { color: var(--accent-hover); }
   a:active,button:active:not(:disabled) { color: var(--accent); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-  ::selection { color: var(--bg); background: var(--accent); }
   [inert] { pointer-events: none; }
 }
 ::-webkit-scrollbar { width: 6px; }
@@ -65,7 +64,7 @@
   *,*::before,*::after { scroll-behavior: auto !important; }
   .menu-row:is(:hover,:focus-visible) .menu-chevron { transform: none; }
 }
-.app { position: relative; min-height: 100dvh; }
+.app { position: relative; min-height: 100dvh; cursor: default; -webkit-user-select: none; user-select: none; }
 .landing { min-height: 100dvh; position: relative; z-index: 10; display: flex; align-items: center; padding: clamp(3rem,9vh,7rem) var(--space-page); transition: opacity 220ms ease; }
 .landing[data-receded="true"] { opacity: 0.08; filter: blur(1px); }
 .landing-composition { width: 100%; max-width: var(--col-width); margin: auto; display: grid; grid-template-columns: minmax(0,1.35fr) minmax(280px,0.85fr); gap: 5rem clamp(3rem,8vw,8rem); align-items: end; }
