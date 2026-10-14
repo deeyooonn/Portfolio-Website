@@ -189,6 +189,7 @@
 .contact-link { display: flex; flex-direction: column; flex: 1; min-width: 0; padding: 1.2rem 0.35rem; color: var(--text-primary); border-radius: var(--radius-sm); transition: background var(--duration-fast),color var(--duration-fast); }
 .contact-link>span:last-child { display: flex; gap: 0.5rem; align-items: center; overflow-wrap: anywhere; font-size: 0.9375rem; }
 .contact-label { font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+.contact-email { -webkit-user-select: text; user-select: text; }
 .contact-link:hover { background: var(--accent-wash); color: var(--accent); }
 .contact-link:active { background: var(--surface-hover); }
 .copy-button { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; min-width: 75px; min-height: 44px; padding: 0.6rem; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: var(--clear); color: var(--text-secondary); font-size: 0.75rem; cursor: pointer; }
