@@ -3,6 +3,7 @@ import { motion, useDragControls, useIsPresent, useMotionValue } from 'framer-mo
 import { X } from 'lucide-react';
 export default function Window({ id, title, variant = 'window', width = 640, depth = 0, isTop, originRect, reducedMotion, mobile, onClose, onBringToFront, children }) {
   const ref = useRef(null);
+  const backgroundPress = useRef(null);
   const isPresent = useIsPresent();
   isTop = isTop && isPresent;
   const dragControls = useDragControls();
@@ -28,6 +29,18 @@ export default function Window({ id, title, variant = 'window', width = 640, dep
   }, [mobile, layer, originRect, x, y]);
   const depthScale = reducedMotion || mobile ? 1 : 1 - depth * 0.025;
   const close = () => onClose(id);
+  const isProjectBackground = target => !target.closest('.project-card, .project-detail, [data-image-viewer]');
+  const recordBackgroundPress = event => {
+    backgroundPress.current = layer && isTop && event.button === 0 && isProjectBackground(event.target)
+      ? { x: event.clientX, y: event.clientY } : null;
+  };
+  const closeFromBackground = event => {
+    const start = backgroundPress.current;
+    backgroundPress.current = null;
+    // Empty grid wrappers count as background; card drags and scrolling do not.
+    if (layer && isTop && start && !event.defaultPrevented && isProjectBackground(event.target)
+      && Math.hypot(event.clientX - start.x, event.clientY - start.y) < 8) close();
+  };
   return <motion.div className={`window-stage ${layer ? 'layer-stage' : ''}`} style={{ zIndex: 120 - depth, pointerEvents: 'none' }} initial={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.18 } }}>
     <motion.div ref={ref} className={layer ? 'project-layer' : 'window-container'}
       style={{ width: layer || mobile ? '100%' : `min(${width}px, 100%)`, x, y, pointerEvents: layer && !isTop ? 'none' : 'auto', visibility: geometry ? 'visible' : 'hidden', transformOrigin: geometry ? `${geometry.originX}px ${geometry.originY}px` : 'center' }}
@@ -40,7 +53,7 @@ export default function Window({ id, title, variant = 'window', width = 640, dep
           <h2 id={`window-title-${id}`}>{title}</h2>
           <button type="button" className="icon-button window-close" onClick={close} aria-label={layer ? `Close ${title}` : `Close ${title} window`}><X size={19} strokeWidth={1.5} /></button>
         </header>
-        <div className={layer ? 'project-layer-body' : 'window-body'} onClick={e => { if (layer && e.target === e.currentTarget) close(); }}>{children}</div>
+        <div className={layer ? 'project-layer-body' : 'window-body'} onPointerDownCapture={recordBackgroundPress} onPointerCancel={() => { backgroundPress.current = null; }} onClick={closeFromBackground}>{children}</div>
       </motion.div>
       {isPresent && !isTop && !layer && !mobile && <div className="window-activate" aria-hidden="true" onPointerDown={() => onBringToFront(id)} />}
     </motion.div>

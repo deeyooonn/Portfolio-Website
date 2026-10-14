@@ -4,7 +4,7 @@ import { Plus, Minus } from 'lucide-react';
 import { skills } from '../data/skills';
 import { useWindowManager } from './windows/WindowManagerContext';
 export default function Skills() {
-  const [expandedIndex, setExpandedIndex] = useState(0);
+  const [expandedIndex, setExpandedIndex] = useState(-1);
   const refs = useRef([]);
   const { reducedMotion } = useWindowManager();
   const navigate = (e, index) => {

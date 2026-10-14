@@ -6,9 +6,9 @@ const MENU_ITEMS = [
   { id: 'experience', label: 'Experience', description: 'Internship and work history' },
   { id: 'contact', label: 'Contact', description: 'Email and links' },
 ];
-export default function Landing({ reducedMotion = false, isWindowOpen = false, onOpen, menuRefs = {} }) {
-  return <main className="landing" data-receded={isWindowOpen} inert={isWindowOpen} aria-hidden={isWindowOpen}>
-    <motion.div className="landing-composition" initial={reducedMotion ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}>
+export default function Landing({ reducedMotion = false, isRevealed = true, introActive = false, quickReveal = false, isWindowOpen = false, onOpen, menuRefs = {} }) {
+  return <main className="landing" data-receded={isWindowOpen} inert={isWindowOpen || introActive} aria-hidden={isWindowOpen || introActive}>
+    <motion.div className="landing-composition" initial={reducedMotion ? false : { opacity: 0, y: 10 }} animate={{ opacity: isRevealed ? 1 : 0, y: isRevealed ? 0 : 10 }} transition={{ duration: reducedMotion ? 0 : quickReveal ? 0.4 : introActive ? 1.35 : 0.55, ease: [0.22, 1, 0.36, 1] }}>
       <div className="landing-intro">
         <h1>Dionel<br /><span className="landing-surname">De Guzman</span></h1>
         <p className="landing-role">Full-stack developer</p>

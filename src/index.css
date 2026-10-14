@@ -39,15 +39,16 @@
 .menu-row:is(:hover,:focus-visible) :is(.menu-label,.menu-chevron) { color: var(--accent); }
 .menu-row:active { background: var(--accent-wash); }
 .menu-row:is(:hover,:focus-visible) .menu-chevron { transform: translateX(3px); }
-.space-background { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-.space-background canvas { width: 100%; height: 100%; display: block; }
-.space-atmosphere { position: absolute; inset: -12%; }
-.space-atmosphere::before,.space-atmosphere::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 72% 30%,rgba(105,149,218,0.085),transparent 48%); animation: atmosphere-drift 38s ease-in-out infinite alternate; }
-.space-atmosphere::after { background: radial-gradient(ellipse at 23% 78%,rgba(92,120,179,0.065),transparent 44%); animation-duration: 46s; animation-direction: alternate-reverse; }
-@keyframes atmosphere-drift { from { transform: translate3d(-3%,-2%,0) scale(1); } to { transform: translate3d(4%,3%,0) scale(1.08); } }
+.space-background { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; background: var(--bg); }
+.space-background canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.space-background[data-intro-active="true"] canvas { visibility: hidden; }
+.space-atmosphere { position: absolute; inset: -20%; }
+.space-atmosphere::before,.space-atmosphere::after { content: ''; position: absolute; inset: 0; transform: rotate(-20.6deg); background: radial-gradient(ellipse 44% 16% at 53% 48%,rgba(108,143,201,0.15),rgba(79,109,176,0.065) 44%,transparent 78%),radial-gradient(ellipse 20% 12% at 70% 48%,rgba(158,193,255,0.065),transparent 75%); animation: atmosphere-drift 55s ease-in-out infinite alternate; }
+.space-atmosphere::after { background: radial-gradient(ellipse 28% 12% at 28% 51%,rgba(167,161,214,0.07),transparent 75%),radial-gradient(ellipse 25% 9% at 65% 53%,rgba(113,140,192,0.08),transparent 80%); animation-duration: 65s; animation-direction: alternate-reverse; }
+@keyframes atmosphere-drift { from { transform: rotate(-20.6deg) translate3d(-1%,0,0) scale(1); } to { transform: rotate(-20.6deg) translate3d(1.5%,1%,0) scale(1.04); } }
 .space-background[data-paused="true"] .space-atmosphere::before,.space-background[data-paused="true"] .space-atmosphere::after { animation-play-state: paused; }
 .space-background[data-reduced-motion="true"] .space-atmosphere::before,.space-background[data-reduced-motion="true"] .space-atmosphere::after { animation: none; }
-.space-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%,var(--clear) 25%,var(--vignette) 100%); }
+.space-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 47%,transparent 30%,rgba(5,7,13,0.7) 100%); }
 .pointer-accent { position: fixed; inset: 0; z-index: 1000; pointer-events: none; opacity: 0; overflow: hidden; }
 .pointer-accent[data-visible="true"] { opacity: 1; }
 .pointer-accent canvas { display: block; width: 100%; height: 100%; }
@@ -67,6 +68,10 @@
   .menu-row:is(:hover,:focus-visible) .menu-chevron { transform: none; }
 }
 .app { position: relative; min-height: 100dvh; cursor: default; -webkit-user-select: none; user-select: none; }
+.galaxy-intro { --intro-veil: 1; position: fixed; inset: 0; z-index: 1100; width: 100%; height: 100%; padding: 0; border: 0; background: transparent; overflow: hidden; isolation: isolate; cursor: pointer; touch-action: manipulation; }
+.galaxy-intro:focus-visible { outline-offset: -6px; }
+.galaxy-intro-veil { position: absolute; inset: 0; background: var(--bg); opacity: var(--intro-veil); }
+.galaxy-intro canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; pointer-events: none; }
 .landing { min-height: 100dvh; position: relative; z-index: 10; display: flex; align-items: center; padding: clamp(3rem,9vh,7rem) var(--space-page); transition: opacity 220ms ease; }
 .landing[data-receded="true"] { opacity: 0.08; filter: blur(1px); }
 .landing-composition { width: 100%; max-width: var(--col-width); margin: auto; display: grid; grid-template-columns: minmax(0,1.35fr) minmax(280px,0.85fr); gap: 5rem clamp(3rem,8vw,8rem); align-items: end; }
