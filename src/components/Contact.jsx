@@ -1,8 +1,7 @@
 ﻿import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Copy, Check } from 'lucide-react';
-const EMAIL = 'diondeguzman@gmail.com';
+const EMAIL = 'diondeguzman0@gmail.com';
 const GITHUB_URL = 'https://github.com/deeyooonn';
-const PHONE_NUMBER = '09310330281';
 const LINKEDIN_URL = '';
 export default function Contact() {
   const [status, setStatus] = useState('idle');
@@ -30,7 +29,6 @@ export default function Contact() {
     <div className="contact-list">
       <div className="contact-row"><a className="contact-link" href={`mailto:${EMAIL}`}><span className="contact-label">Email</span><span ref={emailRef} className="contact-email">{EMAIL}</span></a><button type="button" className="copy-button" aria-label="Copy email address" onClick={handleCopy}>{status === 'copied' ? <Check size={15} aria-hidden="true" /> : <Copy size={15} aria-hidden="true" />}<span>{status === 'copied' ? 'Copied' : 'Copy'}</span></button></div>
       {GITHUB_URL && <div className="contact-row"><a className="contact-link" href={GITHUB_URL} target="_blank" rel="noopener noreferrer"><span className="contact-label">GitHub</span><span>GitHub profile<ArrowUpRight size={15} aria-hidden="true" /></span></a></div>}
-      <div className="contact-row"><a className="contact-link" href={`tel:${PHONE_NUMBER}`}><span className="contact-label">Phone</span><span>{PHONE_NUMBER}</span></a></div>
       {LINKEDIN_URL && <div className="contact-row"><a className="contact-link" href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer"><span className="contact-label">LinkedIn</span><span>LinkedIn profile<ArrowUpRight size={15} aria-hidden="true" /></span></a></div>}
     </div>
     <p aria-live="polite" className={status === 'failed' ? 'copy-feedback' : 'sr-only'}>{status === 'copied' ? 'Email copied to clipboard' : status === 'failed' ? 'Copy failed. Please copy the email address manually.' : ''}</p>
