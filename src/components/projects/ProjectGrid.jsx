@@ -64,6 +64,7 @@ export default function ProjectGrid() {
         {geometry[i] && selectedProjectId !== project.id && <ProjectCard project={project} index={i} slotRef={slotRefs[i]} geometry={geometry[i]} dealt={Boolean(dealt[project.id])} onDealt={() => setDealt(prev => ({ ...prev, [project.id]: true }))} onSelect={selectProject} cardRef={el => { buttons.current[i] = el; }} onKeyDown={e => keyDown(e, i)} reducedMotion={reducedMotion} canDrag={pointer && topWindowId === 'projects'} active={activeCard === project.id} onActivate={() => setActiveCard(project.id)} position={positions[project.id]} onPosition={position => setPositions(prev => ({ ...prev, [project.id]: position }))} />}
       </div>)}
     </div>
-    {selected && <ProjectDetail key="project-detail" project={selected} onBack={() => setSelectedProjectId(null)} onPrev={() => setSelectedProjectId(projects[index - 1]?.id)} onNext={() => setSelectedProjectId(projects[index + 1]?.id)} hasPrev={index > 0} hasNext={index < projects.length - 1} reducedMotion={reducedMotion} />}
+    {/* Keep the component identity aligned with its shared layout ID when browsing. */}
+    {selected && <ProjectDetail key={selected.id} project={selected} onBack={() => setSelectedProjectId(null)} onPrev={() => setSelectedProjectId(projects[index - 1]?.id)} onNext={() => setSelectedProjectId(projects[index + 1]?.id)} hasPrev={index > 0} hasNext={index < projects.length - 1} reducedMotion={reducedMotion} />}
   </div></LayoutGroup>;
 }
