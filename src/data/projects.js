@@ -107,4 +107,21 @@ export const projects = [
     liveUrl: "",
     repoUrl: "https://github.com/deeyooonn/Client-Scrapper",
   },
+  {
+    id: "aether-arena",
+    title: "Aether Arena",
+    year: "",
+    role: "",
+    summary: "A 3D arena survival game with enemy waves, boss fights, and weapon upgrades.",
+    description: "Aether Arena is a single-player browser game built with React, TypeScript, and Three.js. Players fight waves of enemies, face bosses, collect loot, and upgrade ranged and melee weapons between rounds.",
+    highlights: [],
+    tags: ["React", "TypeScript", "Three.js"],
+    image: "/projects/aether-arena-thumb.webp",
+    gallery: [
+      { path: "/projects/aether-arena-gameplay.webp", alt: "Aether Arena gameplay with the player fighting enemy waves and the health, energy, and weapon HUD", caption: "Arena gameplay" },
+      { path: "/projects/aether-arena-menu.webp", alt: "Aether Arena title screen with Single Player, Enemy Almanac, and Settings", caption: "Title screen" },
+    ],
+    liveUrl: "",
+    repoUrl: "https://github.com/deeyooonn/AeA",
+  },
 ];
