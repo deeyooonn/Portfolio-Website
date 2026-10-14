@@ -1,14 +1,14 @@
-﻿import { useState, useEffect, useCallback, useRef } from 'react';
-import { projects } from '../data/projects';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { collections } from '../data/collections';
 const VALID = ['projects', 'skills', 'experience', 'contact'];
-const empty = () => ({ windows: [], selectedProjectId: null });
+const empty = () => ({ windows: [], selectedItemId: null });
 function parseHash() {
-  const [id, projectId] = window.location.hash.slice(1).split('/');
-  return VALID.includes(id) ? { windows: [id], selectedProjectId: id === 'projects' && projects.some(p => p.id === projectId) ? projectId : null } : empty();
+  const [id, itemId] = window.location.hash.slice(1).split('/');
+  return VALID.includes(id) ? { windows: [id], selectedItemId: collections[id]?.some(item => item.id === itemId) ? itemId : null } : empty();
 }
 function url(state) {
   const top = state.windows.at(-1);
-  return window.location.pathname + window.location.search + (top ? `#${top}${top === 'projects' && state.selectedProjectId ? '/' + state.selectedProjectId : ''}` : '');
+  return window.location.pathname + window.location.search + (top ? `#${top}${state.selectedItemId ? '/' + state.selectedItemId : ''}` : '');
 }
 export function useHashWindows() {
   const [state, setState] = useState(parseHash);
@@ -48,9 +48,9 @@ export function useHashWindows() {
         next = invalid.current.has(saved.entry) ? (saved.entry < entry.current ? empty() : previous) : saved.view;
         entry.current = saved.entry;
         if (JSON.stringify(next) === JSON.stringify(previous) && !invalid.current.has(saved.entry)) {
-          next = previous.selectedProjectId && previous.windows.at(-1) === 'projects'
-            ? { ...previous, selectedProjectId: null }
-            : { windows: previous.windows.slice(0, -1), selectedProjectId: null };
+          next = previous.selectedItemId
+            ? { ...previous, selectedItemId: null }
+            : { windows: previous.windows.slice(0, -1), selectedItemId: null };
         }
       } else next = parseHash();
       commit(next);
@@ -67,28 +67,28 @@ export function useHashWindows() {
     openers.current[id] = opener;
     const previous = current.current;
     if (previous.windows.at(-1) === id) return;
-    // The switcher replaces the current section, including any open project detail.
+    // The switcher replaces the current section, including any open card detail.
     for (const [key, view] of entries.current) {
       if (view.windows.some(item => previous.windows.includes(item))) invalid.current.add(key);
     }
-    commit({ windows: [id], selectedProjectId: null }, previous.windows.length === 0);
+    commit({ windows: [id], selectedItemId: null }, previous.windows.length === 0);
   }, [commit]);
   const closeWindow = useCallback(id => {
     const previous = current.current;
     for (const [key, view] of entries.current) if (view.windows.includes(id)) invalid.current.add(key);
     const windows = previous.windows.filter(item => item !== id);
-    commit({ windows, selectedProjectId: id === 'projects' || !windows.length ? null : previous.selectedProjectId });
+    commit({ windows, selectedItemId: null });
   }, [commit]);
   const closeTopWindow = useCallback(() => closeWindow(current.current.windows.at(-1)), [closeWindow]);
   const bringToFront = useCallback(id => {
     if (current.current.windows.includes(id)) openWindow(id, null, openers.current[id]);
   }, [openWindow]);
-  const setSelectedProjectId = useCallback(value => {
+  const setSelectedItemId = useCallback(value => {
     const previous = current.current;
-    const id = typeof value === 'function' ? value(previous.selectedProjectId) : value;
-    const selectedProjectId = projects.some(p => p.id === id) ? id : null;
-    if (!selectedProjectId) for (const [key, view] of entries.current) if (view.selectedProjectId) invalid.current.add(key);
-    commit({ ...previous, selectedProjectId }, Boolean(selectedProjectId && !previous.selectedProjectId));
+    const id = typeof value === 'function' ? value(previous.selectedItemId) : value;
+    const selectedItemId = collections[previous.windows.at(-1)]?.some(item => item.id === id) ? id : null;
+    if (!selectedItemId) for (const [key, view] of entries.current) if (view.selectedItemId) invalid.current.add(key);
+    commit({ ...previous, selectedItemId }, Boolean(selectedItemId && !previous.selectedItemId));
   }, [commit]);
-  return { ...state, topWindowId: state.windows.at(-1) ?? null, originRects, openers, openWindow, closeWindow, closeTopWindow, bringToFront, setSelectedProjectId };
+  return { ...state, topWindowId: state.windows.at(-1) ?? null, originRects, openers, openWindow, closeWindow, closeTopWindow, bringToFront, setSelectedItemId };
 }

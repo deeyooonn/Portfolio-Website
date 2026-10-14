@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Window from './Window';
 import Projects from '../Projects';
@@ -9,12 +9,12 @@ import { WindowManagerContext } from './WindowManagerContext';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 const CONFIG = {
   projects: { title: 'Projects', variant: 'layer', Component: Projects },
-  skills: { title: 'Skills', width: 640, Component: Skills },
-  experience: { title: 'Experience', width: 640, Component: Experience },
-  contact: { title: 'Contact', width: 560, Component: Contact },
+  skills: { title: 'Skills', variant: 'layer', Component: Skills },
+  experience: { title: 'Experience', variant: 'layer', Component: Experience },
+  contact: { title: 'Contact', variant: 'layer', Component: Contact },
 };
 export default function WindowManager(props) {
-  const { windows, topWindowId, selectedProjectId, setSelectedProjectId, openWindow, closeWindow, bringToFront, closeTopWindow, reducedMotion, originRects, openers, menuRefs } = props;
+  const { windows, topWindowId, selectedItemId, setSelectedItemId, openWindow, closeWindow, bringToFront, closeTopWindow, reducedMotion, originRects, openers, menuRefs } = props;
   const isOpen = windows.length > 0;
   const mobile = useMediaQuery('(max-width: 639px)');
   const previousTop = useRef(null);
@@ -44,7 +44,7 @@ export default function WindowManager(props) {
       if (e.defaultPrevented || document.querySelector('[data-image-viewer]')) return;
       if (e.key === 'Escape') {
         e.preventDefault();
-        if (topWindowId === 'projects' && selectedProjectId) setSelectedProjectId(null);
+        if (selectedItemId) setSelectedItemId(null);
         else closeTopWindow();
       }
       if (e.key === 'Tab') {
@@ -58,9 +58,9 @@ export default function WindowManager(props) {
     };
     document.addEventListener('keydown', keyDown);
     return () => document.removeEventListener('keydown', keyDown);
-  }, [isOpen, topWindowId, selectedProjectId, setSelectedProjectId, closeTopWindow, mobile]);
+  }, [isOpen, topWindowId, selectedItemId, setSelectedItemId, closeTopWindow, mobile]);
   const visible = windows.slice(-1);
-  return <WindowManagerContext.Provider value={{ windows, topWindowId, selectedProjectId, setSelectedProjectId, openWindow, closeWindow, bringToFront, closeTopWindow, reducedMotion, mobile }}>
+  return <WindowManagerContext.Provider value={{ windows, topWindowId, selectedItemId, setSelectedItemId, openWindow, closeWindow, bringToFront, closeTopWindow, reducedMotion, mobile }}>
     <AnimatePresence>{isOpen && <motion.div className="window-backdrop" aria-hidden="true" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }} onClick={closeTopWindow} />}</AnimatePresence>
     <AnimatePresence>{visible.map((id, index) => { const { Component, ...config } = CONFIG[id]; return <Window key={id} id={id} {...config} depth={visible.length - 1 - index} isTop={id === topWindowId} originRect={originRects[id]} reducedMotion={reducedMotion} mobile={mobile} onClose={closeWindow} onBringToFront={bringToFront}><Component /></Window>; })}</AnimatePresence>
     <AnimatePresence>{isOpen && !mobile && <motion.nav ref={dockRef} id="section-switcher" className="section-dock" aria-label="Sections" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}>
