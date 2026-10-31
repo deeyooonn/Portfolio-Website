@@ -1,3 +1,4 @@
+import { demoUrl } from '../utils/demoUrl';
 // Screenshots: keep image as the card thumbnail; gallery accepts paths or { path, alt?, caption? }.
 // Store files in public/projects/<project-id>-1.webp and reference /projects/<project-id>-1.webp.
 // Recommended: 1600×1000 (16:10), WebP or PNG, ideally under 300 KB each.
@@ -34,7 +35,7 @@ export const projects = [
     tags: ["Next.js", "TypeScript", "MongoDB"],
     image: "/projects/prime-fleet-mobility-dashboard-thumb.webp",
     gallery: [{"path":"/projects/prime-fleet-mobility-dashboard.webp","alt":"PRIME fleet management dashboard with fleet metrics, dispatch log, and activity feed","caption":"Fleet management dashboard"}],
-    liveUrl: "",
+    liveUrl: demoUrl(import.meta.env.VITE_DEMO_PRIME_URL),
     repoUrl: "https://github.com/prime-philippines/PRIME-Philippines-Intelligent-Fleet-and-Mobility-Management-System",
   },
   {
@@ -48,7 +49,7 @@ export const projects = [
     tags: ["Next.js", "React", "PostgreSQL"],
     image: "/projects/just-ctrl-v-thumb.webp",
     gallery: [{"path":"/projects/just-ctrl-v-front.webp","alt":"Just CTRL + V home screen","caption":"Home screen"}],
-    liveUrl: "",
+    liveUrl: demoUrl(import.meta.env.VITE_DEMO_CTRL_V_URL),
     repoUrl: "https://github.com/deeyooonn/just-ctrl-v",
   },
   {
@@ -62,7 +63,7 @@ export const projects = [
     tags: ["React", "TypeScript", "Supabase"],
     image: "/projects/margal-sport-center-thumb.webp",
     gallery: [{"path":"/projects/margal-sport-center-front.webp","alt":"Margal Sports Website home screen","caption":"Home screen"}],
-    liveUrl: "",
+    liveUrl: demoUrl(import.meta.env.VITE_DEMO_MARGAL_URL),
     repoUrl: "https://github.com/deeyooonn/Margal-Sport-Center-Website",
   },
   {
@@ -76,7 +77,7 @@ export const projects = [
     tags: ["HTML", "CSS", "JavaScript"],
     image: "/projects/albion-enchantment-calculator-thumb.webp",
     gallery: [{"path":"/projects/albion-enchantment-calculator-front.webp","alt":"Albion Online Enchantment Calculator home screen","caption":"Home screen"}],
-    liveUrl: "",
+    liveUrl: demoUrl(import.meta.env.VITE_DEMO_ALBION_URL),
     repoUrl: "https://github.com/deeyooonn/Albion-Online-Enchantment-Calculator",
   },
   {
@@ -90,7 +91,7 @@ export const projects = [
     tags: ["Flutter", "Android"],
     image: "/projects/just-paste-thumb.webp",
     gallery: [{"path":"/projects/just-paste-front.webp","alt":"Just Paste home screen","caption":"Home screen"},{"path":"/projects/just-paste-mobile.webp","alt":"Just Paste mobile home screen","caption":"Mobile home screen"}],
-    liveUrl: "",
+    liveUrl: demoUrl(import.meta.env.VITE_DEMO_JUST_PASTE_URL),
     repoUrl: "https://github.com/deeyooonn/Just-Paste",
   },
   {
@@ -104,7 +105,7 @@ export const projects = [
     tags: ["Next.js", "TypeScript", "Supabase"],
     image: "/projects/client-scrapper-thumb.webp",
     gallery: [{"path":"/projects/client-scrapper-front.webp","alt":"LeadHunter home screen","caption":"Home screen"}],
-    liveUrl: "",
+    liveUrl: demoUrl(import.meta.env.VITE_DEMO_LEADHUNTER_URL),
     repoUrl: "https://github.com/deeyooonn/Client-Scrapper",
   },
   {
@@ -121,7 +122,7 @@ export const projects = [
       { path: "/projects/aether-arena-gameplay.webp", alt: "Aether Arena gameplay with the player fighting enemy waves and the health, energy, and weapon HUD", caption: "Arena gameplay" },
       { path: "/projects/aether-arena-menu.webp", alt: "Aether Arena title screen with Single Player, Enemy Almanac, and Settings", caption: "Title screen" },
     ],
-    liveUrl: "",
+    liveUrl: demoUrl(import.meta.env.VITE_DEMO_AETHER_URL),
     repoUrl: "https://github.com/deeyooonn/AeA",
   },
 ];
