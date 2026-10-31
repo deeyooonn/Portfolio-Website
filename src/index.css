@@ -228,3 +228,6 @@
 .project-links .primary-project-link { background:var(--accent-wash); border:1px solid var(--border-active); border-radius:var(--radius-sm); padding:0.5rem 0.9rem; color:var(--accent); }
 .project-demo-note { font-size:0.8rem; line-height:1.65; color:var(--text-secondary); margin:1rem 0 0; }
 @media(hover:none) { .project-view { opacity:1; } }
+
+@media(pointer:coarse){.window-titlebar{padding-top:max(.65rem,env(safe-area-inset-top))}.image-viewer{padding-bottom:max(2rem,env(safe-area-inset-bottom))}.window-close,.copy-button{min-width:44px;min-height:44px}}
+@media(max-width:639px){.project-layer-body{padding-bottom:calc(2.5rem + env(safe-area-inset-bottom))}}

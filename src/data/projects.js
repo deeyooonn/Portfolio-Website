@@ -119,7 +119,7 @@ export const projects = [
     year: "",
     role: "",
     summary: "An automated tool that finds small businesses and checks for websites and contact details.",
-    description: "LeadHunter searches Google Maps for potential small-business clients, checks for websites, phone numbers, and email addresses, and lets users filter locations across the country.",
+    description: "LeadHunter discovers local businesses through OpenStreetMap, checks their websites for contact details, and lets users filter locations across the Philippines and export results to CSV.",
     highlights: [],
     tags: ["Next.js", "TypeScript", "Supabase"],
     image: "/projects/client-scrapper-live-20261101-thumb.webp",
