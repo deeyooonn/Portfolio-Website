@@ -2,7 +2,7 @@ import { demoUrl } from '../utils/demoUrl';
 // Screenshots: keep image as the card thumbnail; gallery accepts paths or { path, alt?, caption? }.
 // Store files in public/projects/<project-id>-1.webp and reference /projects/<project-id>-1.webp.
 // Recommended: 1600×1000 (16:10), WebP or PNG, ideally under 300 KB each.
-// With no image, the first gallery entry becomes the thumbnail; empty media shows a constellation.
+// With no image, the first gallery entry becomes the thumbnail; cards without media show a category icon.
 // ─── Projects Data ────────────────────────────────────────────────────────────
 // Central definition of all portfolio projects.
 //
@@ -35,7 +35,8 @@ export const projects = [
     tags: ["Next.js", "TypeScript", "MongoDB"],
     image: "/projects/prime-fleet-mobility-dashboard-thumb.webp",
     gallery: [{"path":"/projects/prime-fleet-mobility-dashboard.webp","alt":"PRIME fleet management dashboard with fleet metrics, dispatch log, and activity feed","caption":"Fleet management dashboard"}],
-    liveUrl: demoUrl(import.meta.env.VITE_DEMO_PRIME_URL),
+    demoNote: "Interactive fleet workflow showcase using sample data.",
+    liveUrl: demoUrl(import.meta.env.VITE_DEMO_PRIME_URL ?? 'https://prime-fleet-demo.vercel.app'),
     repoUrl: "https://github.com/prime-philippines/PRIME-Philippines-Intelligent-Fleet-and-Mobility-Management-System",
   },
   {
@@ -49,7 +50,8 @@ export const projects = [
     tags: ["Next.js", "React", "PostgreSQL"],
     image: "/projects/just-ctrl-v-thumb.webp",
     gallery: [{"path":"/projects/just-ctrl-v-front.webp","alt":"Just CTRL + V home screen","caption":"Home screen"}],
-    liveUrl: demoUrl(import.meta.env.VITE_DEMO_CTRL_V_URL),
+    demoNote: "Study demo: create flashcards from typed notes. Saved decks stay in your browser.",
+    liveUrl: demoUrl(import.meta.env.VITE_DEMO_CTRL_V_URL ?? 'https://just-ctrl-v.vercel.app/demo'),
     repoUrl: "https://github.com/deeyooonn/just-ctrl-v",
   },
   {
@@ -63,7 +65,7 @@ export const projects = [
     tags: ["React", "TypeScript", "Supabase"],
     image: "/projects/margal-sport-center-thumb.webp",
     gallery: [{"path":"/projects/margal-sport-center-front.webp","alt":"Margal Sports Website home screen","caption":"Home screen"}],
-    liveUrl: demoUrl(import.meta.env.VITE_DEMO_MARGAL_URL),
+    liveUrl: demoUrl(import.meta.env.VITE_DEMO_MARGAL_URL ?? 'https://margal-sports.vercel.app'),
     repoUrl: "https://github.com/deeyooonn/Margal-Sport-Center-Website",
   },
   {
@@ -77,7 +79,7 @@ export const projects = [
     tags: ["HTML", "CSS", "JavaScript"],
     image: "/projects/albion-enchantment-calculator-thumb.webp",
     gallery: [{"path":"/projects/albion-enchantment-calculator-front.webp","alt":"Albion Online Enchantment Calculator home screen","caption":"Home screen"}],
-    liveUrl: demoUrl(import.meta.env.VITE_DEMO_ALBION_URL),
+    liveUrl: demoUrl(import.meta.env.VITE_DEMO_ALBION_URL ?? 'https://albion-calculator-two.vercel.app'),
     repoUrl: "https://github.com/deeyooonn/Albion-Online-Enchantment-Calculator",
   },
   {
@@ -91,7 +93,8 @@ export const projects = [
     tags: ["Flutter", "Android"],
     image: "/projects/just-paste-thumb.webp",
     gallery: [{"path":"/projects/just-paste-front.webp","alt":"Just Paste home screen","caption":"Home screen"},{"path":"/projects/just-paste-mobile.webp","alt":"Just Paste mobile home screen","caption":"Mobile home screen"}],
-    liveUrl: demoUrl(import.meta.env.VITE_DEMO_JUST_PASTE_URL),
+    demoNote: "Browser showcase of the Android app's study workflow, using typed notes.",
+    liveUrl: demoUrl(import.meta.env.VITE_DEMO_JUST_PASTE_URL ?? 'https://just-paste-demo.vercel.app'),
     repoUrl: "https://github.com/deeyooonn/Just-Paste",
   },
   {
@@ -105,8 +108,9 @@ export const projects = [
     tags: ["Next.js", "TypeScript", "Supabase"],
     image: "/projects/client-scrapper-thumb.webp",
     gallery: [{"path":"/projects/client-scrapper-front.webp","alt":"LeadHunter home screen","caption":"Home screen"}],
-    liveUrl: demoUrl(import.meta.env.VITE_DEMO_LEADHUNTER_URL),
-    repoUrl: "https://github.com/deeyooonn/Client-Scrapper",
+    demoNote: "Interactive demo using fictional businesses and sample contact details.",
+    liveUrl: demoUrl(import.meta.env.VITE_DEMO_LEADHUNTER_URL ?? 'https://leadhunter-snowy.vercel.app'),
+    repoUrl: "https://github.com/deeyooonn/LeadHunter",
   },
   {
     id: "aether-arena",
@@ -122,7 +126,7 @@ export const projects = [
       { path: "/projects/aether-arena-gameplay.webp", alt: "Aether Arena gameplay with the player fighting enemy waves and the health, energy, and weapon HUD", caption: "Arena gameplay" },
       { path: "/projects/aether-arena-menu.webp", alt: "Aether Arena title screen with Single Player, Enemy Almanac, and Settings", caption: "Title screen" },
     ],
-    liveUrl: demoUrl(import.meta.env.VITE_DEMO_AETHER_URL),
+    liveUrl: demoUrl(import.meta.env.VITE_DEMO_AETHER_URL ?? 'https://aether-arena-phi.vercel.app'),
     repoUrl: "https://github.com/deeyooonn/AeA",
   },
 ];

@@ -29,7 +29,7 @@ export default function Window({ id, title, variant = 'window', width = 640, dep
   }, [mobile, layer, originRect, x, y]);
   const depthScale = reducedMotion || mobile ? 1 : 1 - depth * 0.025;
   const close = () => onClose(id);
-  const isProjectBackground = target => !target.closest('.project-card, .project-detail, [data-image-viewer]');
+  const isProjectBackground = target => !target.closest('.project-card, .project-launch, .project-detail, [data-image-viewer]');
   const recordBackgroundPress = event => {
     backgroundPress.current = layer && isTop && event.button === 0 && isProjectBackground(event.target)
       ? { x: event.clientX, y: event.clientY } : null;

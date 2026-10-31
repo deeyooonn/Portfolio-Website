@@ -1,8 +1,6 @@
-import Constellation from '../projects/Constellation';
-
 export default function InfoContent({ item, sectionId, children }) {
   return <>
-    <Constellation id={item.id} className="detail-constellation" />
+    {item.image && <figure className="experience-photo"><img src={item.image} alt={item.photoAlt || item.title} width="2048" height="1152" decoding="async" />{item.photoCaption && <figcaption>{item.photoCaption}</figcaption>}</figure>}
     <div className="case-study-copy">
       <div className="case-study-heading"><h3 id={`${sectionId}-${item.id}-title`}>{item.title}</h3></div>
       <p className="project-description">{item.description || item.summary}</p>

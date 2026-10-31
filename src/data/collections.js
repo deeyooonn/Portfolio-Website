@@ -21,16 +21,19 @@ export const experienceCards = [
   {
     id: 'prime-internship',
     title: 'PRIME',
+    image: '/prime-internship.jpg',
+    photoAlt: 'PRIME internship group holding certificates of completion',
+    photoCaption: 'With the team at the completion of my PRIME internship.',
     summary: "Contributed to PRIME's fleet and mobility platform as part of the development team.",
     tags: ['Internship', 'Development'],
     description: "Worked as part of PRIME's development team during my internship, contributing to a platform that lets employees book company cars and services.",
   },
   {
     id: 'work-experience',
-    title: 'Work experience',
-    summary: 'Starting my professional journey and looking for opportunities to contribute.',
+    title: 'Open to opportunities',
+    summary: 'Building on my internship experience and looking for opportunities to contribute.',
     tags: ['Early career'],
-    description: 'No professional work experience yet. Open to internships, freelance work, and collaborations.',
+    description: 'Building on my PRIME internship and personal projects. Open to internships, freelance work, and collaborations.',
   },
 ];
 
