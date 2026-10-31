@@ -8,14 +8,29 @@ const skillSummaries = [
   'Backend services and mobile applications across platforms.',
   'The tools I use to build, run, and collaborate on projects.',
 ];
+const skillExamples = [
+  { id: 'albion-enchantment-calculator', caption: 'Albion calculator - JavaScript' },
+  { id: 'margal-sport-center', caption: 'Margal Sports - React interface' },
+  { id: 'just-paste', caption: 'Just Paste - browser study showcase', screenshot: 1 },
+  { id: 'aether-arena', caption: 'Aether Arena - Vite project' },
+];
 
-export const skillCards = skills.map((group, index) => ({
-  id: skillIds[index],
-  title: group.group,
-  summary: skillSummaries[index],
-  tags: [`${group.items.length} skills`],
-  items: group.items,
-}));
+export const skillCards = skills.map((group, index) => {
+  const example = skillExamples[index];
+  const project = projects.find(item => item.id === example.id);
+  const screenshot = project.gallery[example.screenshot || 0];
+  return {
+    id: skillIds[index],
+    title: group.group,
+    summary: skillSummaries[index],
+    tags: [`${group.items.length} skills`],
+    items: group.items,
+    image: screenshot.path,
+    imageAlt: screenshot.alt,
+    imageCaption: example.caption,
+    previewLabel: example.caption,
+  };
+});
 
 export const experienceCards = [
   {

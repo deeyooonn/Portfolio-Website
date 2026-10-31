@@ -7,6 +7,8 @@ The names in `.env.example` optionally override these addresses at build time. A
 
 PRIME, Just Paste, CTRL + V, and LeadHunter link to the prepared interactive demos described in their detail views. PRIME's source link preserves the original team repository attribution. The Experience section uses the supplied internship completion photo.
 
+Project thumbnails, galleries, and Skills previews use screenshots captured from the production sites on 2026-11-01. Skills previews reference the project gallery entries directly, with captions identifying the example. Versioned image filenames keep earlier screenshots out of browser caches when the portfolio is updated.
+
 Check the project links, hash routes, and mobile navigation on the actual deployment.
 
 Reference: https://vercel.com/docs/frameworks/frontend/vite

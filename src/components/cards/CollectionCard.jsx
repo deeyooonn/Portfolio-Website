@@ -33,7 +33,7 @@ export default function CollectionCard({ item, index, slotRef, geometry, dealt, 
       onAnimationComplete={() => { if (started && !finished) { setFinished(true); onDealt(); } }}
       whileHover={!reducedMotion && finished ? { y: -4, transition: { duration: 0.18 } } : undefined}
       style={{ willChange: finished ? 'auto' : 'transform, opacity' }}>
-      <div className="project-card-art" data-photo={Boolean(item.photoAlt)}>{thumbnail ? <img src={thumbnail} alt="" width="1600" height="1000" loading="lazy" decoding="async" /> : <CardVisual item={item} />}</div>
+      <div className="project-card-art" data-photo={Boolean(item.photoAlt)}>{thumbnail ? <img src={thumbnail} alt="" width="1600" height="1000" loading="lazy" decoding="async" /> : <CardVisual item={item} />}{item.previewLabel && <span className="card-art-caption">{item.previewLabel}</span>}</div>
       <div className="project-card-copy"><h3>{item.title}</h3>{item.summary && <p>{item.summary}</p>}</div>
       {metadata && <div className="project-metadata">{item.year?.trim() && <span>{item.year}</span>}{tags.map(tag => <span key={tag}>{tag}</span>)}</div>}
       {!item.liveUrl && <span className="project-view"><span>View</span><ChevronRight size={14} aria-hidden="true" /></span>}
