@@ -53,13 +53,20 @@ export const projects = [
     description: "Just CTRL + V uses AI to read documents and pictures and turn them into reviewers and flashcards. Users can save and export their files.",
     highlights: [],
     tags: ["Next.js", "React", "PostgreSQL"],
-    image: "/projects/just-ctrl-v-live-20261101-thumb.webp",
+    image: "/projects/just-ctrl-v-live-20261101-actual-thumb.webp",
     gallery: [
-      {"path":"/projects/just-ctrl-v-live-20261101-overview.webp","alt":"Deployed Just CTRL + V study demo with a notes editor and flashcard creation controls","caption":"Study demo - notes editor"},
-      {"path":"/projects/just-ctrl-v-live-20261101-flashcards.webp","alt":"Just CTRL + V browser demo displaying a flashcard deck created from sample notes","caption":"Study demo - generated flashcards"},
+      {
+        "path": "/projects/just-ctrl-v-live-20261101-actual-overview.webp",
+        "alt": "Original Just CTRL + V screenshot and document upload application",
+        "caption": "Original Just CTRL + V application"
+      },
+      {
+        "path": "/projects/just-ctrl-v-live-20261101-actual-mobile.webp",
+        "alt": "Current just-ctrl-v application on a phone-sized screen",
+        "caption": "Original application - mobile layout"
+      }
     ],
-    demoNote: "Study demo: create flashcards from typed notes. Saved decks stay in your browser.",
-    liveUrl: demoUrl(import.meta.env.VITE_DEMO_CTRL_V_URL ?? 'https://just-ctrl-v.vercel.app/demo'),
+    liveUrl: demoUrl(import.meta.env.VITE_DEMO_CTRL_V_URL ?? 'https://just-ctrl-v.vercel.app'),
     repoUrl: "https://github.com/deeyooonn/just-ctrl-v",
   },
   {
@@ -71,9 +78,23 @@ export const projects = [
     description: "The website helps Margal Sports clients book services and manage their bookings.",
     highlights: [],
     tags: ["React", "TypeScript", "Supabase"],
-    image: "/projects/margal-sport-center-live-20261101-thumb.webp",
+    image: "/projects/margal-sport-center-live-20261101-actual-thumb.webp",
     gallery: [
-      {"path":"/projects/margal-sport-center-live-20261101-overview.webp","alt":"Deployed Margal Sports homepage with the current sports booking interface","caption":"Current Margal Sports homepage"},
+      {
+        "path": "/projects/margal-sport-center-live-20261101-actual-overview.webp",
+        "alt": "Deployed Margal Sports homepage with the current sports booking interface",
+        "caption": "Current Margal Sports homepage"
+      },
+      {
+        "path": "/projects/margal-sport-center-live-20261101-actual-bookings.webp",
+        "alt": "Margal court calendar and booking controls showing current online-reservation availability",
+        "caption": "Court booking interface"
+      },
+      {
+        "path": "/projects/margal-sport-center-live-20261101-actual-mobile.webp",
+        "alt": "Current margal-sport-center application on a phone-sized screen",
+        "caption": "Original application - mobile layout"
+      }
     ],
     liveUrl: demoUrl(import.meta.env.VITE_DEMO_MARGAL_URL ?? 'https://margal-sports.vercel.app'),
     repoUrl: "https://github.com/deeyooonn/Margal-Sport-Center-Website",
@@ -99,17 +120,23 @@ export const projects = [
     title: "Just Paste",
     year: "",
     role: "",
-    summary: "An Android-focused Flutter app that scans documents with AI and turns them into flashcards.",
-    description: "Just Paste uses AI to read documents and create flashcards for studying. It is built with Flutter, primarily for Android devices.",
+    summary: "A Flutter study app for turning documents and notes into flashcards on web and Android.",
+    description: "Just Paste is built with Flutter for Android and web. The project includes document and text inputs, flashcard study screens, and an authenticated library. Its website now runs the original Flutter application.",
     highlights: [],
     tags: ["Flutter", "Android"],
-    image: "/projects/just-paste-live-20261101-thumb.webp",
+    image: "/projects/just-paste-live-20261101-actual-thumb.webp",
     gallery: [
-      {"path":"/projects/just-paste-live-20261101-overview.webp","alt":"Deployed Just Paste browser showcase with notes and study deck controls","caption":"Browser showcase - study workspace"},
-      {"path":"/projects/just-paste-live-20261101-flashcards.webp","alt":"Just Paste browser showcase displaying a study deck created from sample notes","caption":"Browser showcase - study deck"},
-      {"path":"/projects/just-paste-live-20261101-mobile.webp","alt":"Current Just Paste browser showcase on a phone-sized screen","caption":"Browser showcase - mobile layout"},
+      {
+        "path": "/projects/just-paste-live-20261101-actual-overview.webp",
+        "alt": "Original Just Paste Flutter application with its study introduction and Google sign-in screen",
+        "caption": "Original Flutter app - sign in"
+      },
+      {
+        "path": "/projects/just-paste-live-20261101-actual-mobile.webp",
+        "alt": "Current just-paste application on a phone-sized screen",
+        "caption": "Original application - mobile layout"
+      }
     ],
-    demoNote: "Browser showcase of the Android app's study workflow, using typed notes.",
     liveUrl: demoUrl(import.meta.env.VITE_DEMO_JUST_PASTE_URL ?? 'https://just-paste-demo.vercel.app'),
     repoUrl: "https://github.com/deeyooonn/Just-Paste",
   },
@@ -122,12 +149,19 @@ export const projects = [
     description: "LeadHunter discovers local businesses through OpenStreetMap, checks their websites for contact details, and lets users filter locations across the Philippines and export results to CSV.",
     highlights: [],
     tags: ["Next.js", "TypeScript", "Supabase"],
-    image: "/projects/client-scrapper-live-20261101-thumb.webp",
+    image: "/projects/client-scrapper-live-20261101-actual-thumb.webp",
     gallery: [
-      {"path":"/projects/client-scrapper-live-20261101-overview.webp","alt":"Deployed LeadHunter demo with location filters and sample lead discovery controls","caption":"LeadHunter search workspace - sample data demo"},
-      {"path":"/projects/client-scrapper-live-20261101-results.webp","alt":"LeadHunter browser demo showing fictional businesses returned by its sample search","caption":"LeadHunter demo - sample business results"},
+      {
+        "path": "/projects/client-scrapper-live-20261101-actual-overview.webp",
+        "alt": "Original LeadHunter application with province, city and business-category search controls",
+        "caption": "LeadHunter - live discovery workspace"
+      },
+      {
+        "path": "/projects/client-scrapper-live-20261101-actual-mobile.webp",
+        "alt": "Current client-scrapper application on a phone-sized screen",
+        "caption": "Original application - mobile layout"
+      }
     ],
-    demoNote: "Interactive demo using fictional businesses and sample contact details.",
     liveUrl: demoUrl(import.meta.env.VITE_DEMO_LEADHUNTER_URL ?? 'https://leadhunter-snowy.vercel.app'),
     repoUrl: "https://github.com/deeyooonn/LeadHunter",
   },
