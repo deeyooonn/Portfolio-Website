@@ -66,7 +66,7 @@ export const projects = [
         "caption": "Original application - mobile layout"
       }
     ],
-    liveUrl: demoUrl(import.meta.env.VITE_DEMO_CTRL_V_URL ?? 'https://just-ctrl-v.vercel.app'),
+    liveUrl: demoUrl(import.meta.env.VITE_DEMO_CTRL_V_URL ?? 'https://just-ctrl-v-zst2.vercel.app'),
     repoUrl: "https://github.com/deeyooonn/just-ctrl-v",
   },
   {
